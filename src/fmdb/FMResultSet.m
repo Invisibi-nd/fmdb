@@ -262,7 +262,13 @@
 }
 
 - (NSString*)stringForColumn:(NSString*)columnName {
-    return [self stringForColumnIndex:[self columnIndexForName:columnName]];
+    NSString *string = [NSString stringWithFormat:@"%@",[self stringForColumnIndex:[self columnIndexForName:columnName]]];
+    
+    if(string == nil || (NSObject *)string == [NSNull null] || [string isEqualToString:@"(null)"] || [string isEqualToString:@"<null>"])
+    {
+        return @"";
+    }
+    return string;
 }
 
 - (NSDate*)dateForColumn:(NSString*)columnName {
